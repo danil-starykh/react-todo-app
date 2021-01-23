@@ -9,6 +9,22 @@ import PostAddForm from '../todo-add-form';
 import './app.css';
 
 const App = () => {
+
+    const data = [
+        {
+            label: "Close a window",
+            important: true
+        },
+        {
+            label: "Finish work",
+            important: false
+        },
+        {
+            label: "Call Adam",
+            important: false
+        }
+    ]
+
     return (
         <div className="app">
             <AppHeader />
@@ -16,7 +32,7 @@ const App = () => {
                 <SearchPanel />
                 <PostStatusFilter />
             </div>
-            <PostList />
+            <PostList todoItems={data}/>
             <PostAddForm />
         </div>
     )

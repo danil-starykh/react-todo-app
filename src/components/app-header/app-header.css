@@ -8,6 +8,8 @@
   /* width: 150px;
   height: 150px; */
   font-size: 26px;
+  font-family: Comic Sans MS, Comic Sans, cursive;
+  text-decoration: underline;
 }
 
 .app-header h2 {
