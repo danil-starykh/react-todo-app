@@ -2,34 +2,11 @@ import React, {Component} from 'react';
 
 import './todo-list-item.css';
 
-export default class PostListItem extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            important: false,
-            done: false
-        };
-        this.onImportant = this.onImportant.bind(this);
-        this.onDone = this.onDone.bind(this);
-    }
-
-    onImportant() {
-        this.setState(({important}) => ({
-            important: !important
-        }))
-    }
-
-    onDone() {
-        this.setState(({done}) => ({
-            done: !done
-        }))
-    }
+export default class ToDoListItem extends Component {
 
     render() {
 
-        const {label} = this.props;
-        const {important, done} = this.state;
+        const {label, onDelete, onToggleImportant, onToggleDone, important, done} = this.props;
         let classNames = "app-list-item d-flex justify-content-between";
 
         if (important) {
@@ -44,17 +21,20 @@ export default class PostListItem extends Component {
             <div className={classNames}>
                 <span 
                 className="app-list-item-label"
-                onClick={this.onDone}>
+                onClick={onToggleDone}>
                     {label}
                 </span>
                 <div className="d-flex justify-content-center align-items-center">
                     <button 
                         type="button" 
                         className="btn-star btn-sm"
-                        onClick={this.onImportant}>
+                        onClick={onToggleImportant}>
                         <i className="fa fa-star"></i>
                     </button>
-                    <button type="button" className="btn-trash btn-sm">
+                    <button 
+                        type="button" 
+                        className="btn-trash btn-sm"
+                        onClick={onDelete}>
                         <i className="fa fa-trash-o"></i>
                     </button>
                     <i className="fa fa-check"></i>

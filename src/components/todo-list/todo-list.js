@@ -1,9 +1,10 @@
 import React from 'react';
-import PostListItem from '../todo-list-item'
+import ToDoListItem from '../todo-list-item'
+import { ListGroup } from 'reactstrap';
 
 import './todo-list.css';
 
-const PostList = ({todoItems}) => {
+const ToDoList = ({todoItems, onDelete, onToggleImportant, onToggleDone}) => {
     
     const elements = todoItems.map((item) => {
         
@@ -11,16 +12,20 @@ const PostList = ({todoItems}) => {
         
         return (
             <li key={id} className='list-group-item'>
-                <PostListItem {...itemProps}/>
+                <ToDoListItem 
+                    {...itemProps}
+                    onDelete={() => onDelete(id)}
+                    onToggleImportant={() => onToggleImportant(id)}
+                    onToggleDone={() => onToggleDone(id)}/>
             </li>
         )
     })
 
     return (
-        <ul className="app-list list-group">
+        <ListGroup className="app-list">
             {elements}
-        </ul>
+        </ListGroup>
     )
 }
 
-export default PostList;
+export default ToDoList;

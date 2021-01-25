@@ -1,22 +1,50 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 import './todo-add-form.css';
 
-const PostAddForm = () => {
-    return (
-        <form className="bottom-panel d-flex">
-            <input 
-                className="form-control new-post-label" 
-                type="text" 
-                placeholder="Что планируете сделать?"
-            />
-            <button
-                type="submit"
-                className="btn btn-outline-secondary"
-            >Добавить
-            </button>
-        </form>
-    )
-}
+export default class ToDoAddForm extends Component {
+    
+    constructor(props) {
+        super(props);
+        this.state = {
+            text: ''
+        }
+        this.onValueChange = this.onValueChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+    }
 
-export default PostAddForm;
+    onValueChange(e) {
+        this.setState({
+            text: e.target.value
+        })
+    }
+
+    onSubmit(e) {
+        e.preventDefault();
+        this.props.onAdd(this.state.text);
+        this.setState({
+            text: ''
+        });
+    }
+
+    render() {
+        return (
+            <form 
+                className="bottom-panel d-flex"
+                onSubmit={this.onSubmit}>
+                <input 
+                    className="form-control new-post-label" 
+                    type="text" 
+                    placeholder="Что планируете сделать?"
+                    onChange={this.onValueChange}
+                    value={this.state.text}
+                />
+                <button
+                    type="submit"
+                    className="btn btn-outline-info">
+                    Добавить
+                </button>
+            </form>
+        )
+    }
+}
