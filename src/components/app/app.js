@@ -34,7 +34,8 @@ export default class App extends Component {
                 }
             ],
             whiteTheme: false,
-            searchText: ''
+            searchText: '',
+            filter: 'all'
         }
         this.deleteItem = this.deleteItem.bind(this);
         this.addItem = this.addItem.bind(this);
@@ -43,6 +44,7 @@ export default class App extends Component {
         this.onChangeTheme = this.onChangeTheme.bind(this);
         this.searchTask = this.searchTask.bind(this);
         this.onUpdateSearch = this.onUpdateSearch.bind(this);
+        this.onFilterSelect = this.onFilterSelect.bind(this);
 
         this.maxID = 4;
     }
@@ -57,8 +59,20 @@ export default class App extends Component {
         })
     }
 
+    filterTasks(items, filter) {
+        if(filter === 'done') {
+            return items.filter(item => item.done);
+        } else {
+            return items;
+        }
+    }
+
     onUpdateSearch(term) {
         this.setState({searchText: term});
+    }
+
+    onFilterSelect(filter) {
+        this.setState({filter});
     }
 
     deleteItem(id) {
@@ -126,12 +140,12 @@ export default class App extends Component {
     }
 
     render() {
-        const {data, whiteTheme, searchText} = this.state;
+        const {data, whiteTheme, searchText, filter} = this.state;
 
         const countOfItems = data.length;
         const countOfDone = data.filter(elem => elem.done).length;
 
-        const visibleTasks = this.searchTask(data, searchText);
+        const visibleTasks = this.filterTasks(this.searchTask(data, searchText), filter);
 
         return (
             <div className="app">
@@ -142,7 +156,9 @@ export default class App extends Component {
                     whiteTheme={whiteTheme}/>
                 <div className="search-panel d-flex"> 
                     <SearchPanel onUpdateSearch={this.onUpdateSearch}/>
-                    <ToDoStatusFilter />
+                    <ToDoStatusFilter 
+                        filter={filter}
+                        onFilterSelect={this.onFilterSelect}/>
                 </div>
                 <ToDoList 
                     todoItems={visibleTasks} 

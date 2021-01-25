@@ -1,14 +1,38 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 import './todo-status-filter.css';
 
-const ToDoStatusFilter = () => {
-    return (
-        <div className="btn-group">
-            <button type='button' className='btn btn-info'>Все</button>
-            <button type='button' className='btn btn-outline-secondary'>Сделано</button>
-        </div>
-    )
+export default class ToDoStatusFilter extends Component {
+
+    constructor(props) {
+        super(props);
+        this.buttons = [
+            {name: 'all', lable: 'Все'},
+            {name: 'done', lable: 'Сделано'}
+        ]
+    }
+    
+    render() {
+
+        const buttons = this.buttons.map(({name, lable}) => {
+            const active = this.props.filter === name;
+            const btnClass = active ? 'btn btn-info' : 'btn btn-outline-secondary'
+            return (
+                <button 
+                    key={name} 
+                    type='button' 
+                    className={btnClass}
+                    onClick={() => this.props.onFilterSelect(name)}>
+                    {lable}
+                </button>
+            )
+        })
+
+        return (
+            <div className="btn-group">
+               {buttons}
+            </div>
+        )
+    }
 }
 
-export default ToDoStatusFilter;
