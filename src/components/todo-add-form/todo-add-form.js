@@ -21,6 +21,7 @@ export default class ToDoAddForm extends Component {
 
     onSubmit(e) {
         e.preventDefault();
+
         this.props.onAdd(this.state.text);
         this.setState({
             text: ''
@@ -38,6 +39,7 @@ export default class ToDoAddForm extends Component {
                     placeholder="Что планируете сделать?"
                     onChange={this.onValueChange}
                     value={this.state.text}
+                    required
                 />
                 <button
                     type="submit"

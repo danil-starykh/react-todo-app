@@ -9,11 +9,11 @@ export default class AppHeader extends Component {
         const {countOfItems, countOfDone, onChangeTheme, whiteTheme} = this.props;
 
         let classNames = "fa fa-sun-o";
-        document.body.style = 'background: white;';
+        document.body.style = 'background: #f7f7e8;';
 
         if (!whiteTheme) {
             classNames = "fa fa-moon-o";
-            document.body.style = 'background: #282C34;';
+            document.body.style = 'background: #222831;';
         }
 
         return (

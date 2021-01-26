@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import store from 'store';
 
 import AppHeader from '../app-header';
 import SearchPanel from '../search-panel';
@@ -15,22 +16,16 @@ export default class App extends Component {
         this.state = {
             data : [
                 {
-                    label: "Close a window",
+                    label: "First test task...",
                     important: false,
                     done: false,
                     id: 1
                 },
                 {
-                    label: "Finish work",
-                    important: false,
-                    done: false,
+                    label: "Second test task...",
+                    important: true,
+                    done: true,
                     id: 2
-                },
-                {
-                    label: "Call Adam",
-                    important: false,
-                    done: false,
-                    id: 3
                 }
             ],
             whiteTheme: false,
@@ -45,9 +40,24 @@ export default class App extends Component {
         this.searchTask = this.searchTask.bind(this);
         this.onUpdateSearch = this.onUpdateSearch.bind(this);
         this.onFilterSelect = this.onFilterSelect.bind(this);
+        this.componentDidMount = this.componentDidMount.bind(this);
 
-        this.maxID = 4;
+        this.maxID = 3;
     }
+
+    componentDidMount() {
+
+        const data =  store.get('data');
+        
+        if (data) {
+            this.setState({data});
+        } else {
+            store.set('data', this.state.data);
+        }
+
+        const whiteTheme = store.get('theme');
+        this.setState({whiteTheme});
+      }
 
     searchTask(items, searchText) {
         if(searchText === 0) {
@@ -79,7 +89,7 @@ export default class App extends Component {
         this.setState(({data}) => {
             const index = data.findIndex(elem => elem.id === id);
             const newArr = [...data.slice(0, index), ...data.slice(index + 1)];
-
+            store.set('data', newArr);
             return {
                 data: newArr
             }
@@ -90,6 +100,7 @@ export default class App extends Component {
         this.setState(({whiteTheme}) => {
             const oldTheme = whiteTheme;
             const newTheme = !oldTheme;
+            store.set('theme', newTheme);
             return {
                 whiteTheme : newTheme
             }
@@ -103,8 +114,13 @@ export default class App extends Component {
             id: this.maxID++
         } 
 
+        if (/^\s+$/.test(newItem.label)) {
+            return;
+        }
+
         this.setState(({data}) => {
             const newArr = [...data, newItem];
+            store.set('data', newArr);
             return {
                 data: newArr
             }
@@ -117,7 +133,7 @@ export default class App extends Component {
             const old = data[index];
             const newItem = {...old, important: !old.important};
             const newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
-
+            store.set('data', newArr);
             return {
                 data: newArr
             }
@@ -132,7 +148,7 @@ export default class App extends Component {
             const newItem = {...old, done: !old.done};
             
             const newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
-
+            store.set('data', newArr);
             return {
                 data: newArr
             }
