@@ -20,6 +20,7 @@ You will also see any lint errors in the console.
 2) The ability to change the theme of the application
 3) Filtering and searching notes
 4) Changing the status of a note
+5) All data is stored in local storage
 
 ## Screenshots
 
