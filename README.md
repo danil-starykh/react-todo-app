@@ -13,3 +13,16 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
+
+## Features
+
+1) Adding and removing notes
+2) The ability to change the theme of the application
+3) Filtering and searching notes
+4) Changing the status of a note
+
+## Screenshots
+
+![alt text](screenshots/react-todo-app1.png "React todo App")
+
+![alt text](screenshots/react-todo-app2.png "Screenshot with completed tasks")
